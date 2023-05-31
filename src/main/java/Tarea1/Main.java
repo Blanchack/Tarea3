@@ -10,7 +10,7 @@ public class Main {
 
         try {
 
-            Comprador c = new Comprador(m, 4, exp);
+            Comprador c = new Comprador(m, Expendedor.Productos.SPRITE, exp);
             System.out.println(c.queConsumiste()+ ", " +c.cuantoVuelto());
             //exp.comprarBebida(m, 1); no es necesario comprar bebiba manualmente,
             //                         esta implemetado en la clase Comprador.

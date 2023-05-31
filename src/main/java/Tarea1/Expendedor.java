@@ -10,13 +10,23 @@ package Tarea1;
 class Expendedor{
     
     /*Constantes utilizadas en la selección del producto.*/
-    public static final int COCA = 1;
 
-    public static final int SPRITE = 2;
+    public enum Productos{
+        COCA(1),
+        SPRITE(2),
+        SNICKERS(3),
+        SUPER8(4);
 
-    public static final int SNICKERS = 3;
+        private final int codigo;
 
-    public static final int SUPER8 = 4;
+        Productos(int cod){
+            codigo = cod;
+        }
+
+        public int getCodigo(){return codigo;}
+
+    }
+
 
     /*Atributos de clase Expendedor*/
     private int precioB; //Almacena el precio de cada bebida.
@@ -58,16 +68,17 @@ class Expendedor{
     * @throws NoHayProductoException (si el producto solicitado no esta disponible en el deposito)
     */    
 
-    public Producto comprarProducto(Moneda mon, int sele) throws PagoInsuficienteException, PagoIncorrectoException, NoHayProductoException {
+    public Producto comprarProducto(Moneda mon, Productos sele) throws PagoInsuficienteException, PagoIncorrectoException, NoHayProductoException {
         Producto ret = null;
         int vuelto = 0;
 
-        if(((sele==1 || sele==2) && mon.getValor() < precioB) || ((sele==3 || sele==4) && mon.getValor() < precioD)){ //Si el dinero ingresado es menor que el precio lanza una excepcion.
+        if(mon == null){ //Si el dinero ingresado no es valido lanza una excepcion.
+            throw new PagoIncorrectoException("No hay moneda para comprar.");
+        }
+        else if(((sele==Productos.SPRITE || sele==Productos.COCA) && mon.getValor() < precioB) || ((sele==Productos.SUPER8 || sele==Productos.SPRITE) && mon.getValor() < precioD)){ //Si el dinero ingresado es menor que el precio lanza una excepcion.
             throw new PagoInsuficienteException("El pago no es suficiente.");
         }
-        else if(mon == null){ //Si el dinero ingresado no es valido lanza una excepcion.
-            throw new PagoIncorrectoException("No hay moneda para comprar."); 
-        }
+
 
         switch (sele) { //El numero asociado al producto permite su posterior retiro.
             case COCA -> {

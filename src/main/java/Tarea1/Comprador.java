@@ -19,7 +19,7 @@ class Comprador{
     * @throws  PagoIncorrectoException  puede lanzar esta excepción si la moneda ingresada no es valida (null).
     */
 
-    public Comprador(Moneda m, int productoId, Expendedor ex) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
+    public Comprador(Moneda m, Expendedor.Productos productoId, Expendedor ex) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
         vuelto = 0;
         sonido = "null";
         
